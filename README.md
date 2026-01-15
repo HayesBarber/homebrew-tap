@@ -6,6 +6,10 @@ My personal Homebrew tap.
 
 ```bash
 brew tap HayesBarber/tap
-brew install <package>
+brew install <formula>
 ```
+
+## Formulae
+
+- [srl](https://github.com/HayesBarber/spaced-repetition-learning)
 
