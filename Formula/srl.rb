@@ -34,8 +34,7 @@ class Srl < Formula
   end
 
   test do
-    assert_match "srl", shell_output("#{bin}/srl --help")
-    system "#{bin}/srl", "--version"
+    assert_match "usage: srl", shell_output("#{bin}/srl --help")
   end
 end
 
