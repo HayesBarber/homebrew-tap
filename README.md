@@ -11,5 +11,5 @@ brew install <formula>
 
 ## Formulae
 
-- [srl](https://github.com/HayesBarber/spaced-repetition-learning)
+- [srl — Spaced Repetition Learning CLI](https://github.com/HayesBarber/spaced-repetition-learning)
 
