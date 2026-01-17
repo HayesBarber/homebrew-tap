@@ -3,8 +3,8 @@ class Srl < Formula
 
   desc "Spaced repetition learning CLI tool"
   homepage "https://github.com/HayesBarber/spaced-repetition-learning"
-  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v10.0.0"
-  sha256 "0792cc473611dbcc7f9336d51fb43d2de5a2d2292e7c3b71a2c107490df7aa5e"
+  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v10.1.0"
+  sha256 "d8be7247e8ac4d05ef161b502d8622e0d43aa3ca05c4ea6d220afa900b5ade1e"
   license "MIT"
 
   depends_on "python@3.12"
@@ -27,6 +27,11 @@ class Srl < Formula
   resource "pydantic" do
     url "https://files.pythonhosted.org/packages/69/44/36f1a6e523abc58ae5f928898e4aca2e0ea509b5aa6f6f392a5d882be928/pydantic-2.12.5.tar.gz"
     sha256 "4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"
+  end
+
+  resource "starlette" do
+    url "https://files.pythonhosted.org/packages/ba/b8/73a0e6a6e079a9d9cfa64113d771e421640b6f679a52eeb9b32f72d871a1/starlette-0.50.0.tar.gz"
+    sha256 "a2a17b22203254bcbc2e1f926d2d55f3f9497f769416b3190768befe598fa3ca"
   end
 
   def install
