@@ -60,11 +60,10 @@ fi
 echo "New SHA256: $NEW_SHA"
 
 echo "Updating formula file..."
-OLD_URL=$(grep -E '^\s*url\s+' "$FORMULA_PATH" | head -n1)
-OLD_SHA=$(grep -E '^\s*sha256\s+' "$FORMULA_PATH" | head -n1)
 
-sed -i.bak "s|url \"https://api.github.com/repos/.*/tarball/.*\"|url \"${TARBALL_URL}\"|" "$FORMULA_PATH"
-sed -i.bak "s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${NEW_SHA}\"|" "$FORMULA_PATH"
+# Only update line 6 (URL) and line 7 (sha256) - the main formula, not dependencies
+sed -i.bak "6s|url \"https://api.github.com/repos/.*/tarball/.*\"|url \"${TARBALL_URL}\"|" "$FORMULA_PATH"
+sed -i.bak "7s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${NEW_SHA}\"|" "$FORMULA_PATH"
 
 rm -f "${FORMULA_PATH}.bak"
 
