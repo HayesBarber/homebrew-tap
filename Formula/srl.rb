@@ -3,8 +3,8 @@ class Srl < Formula
 
   desc "Spaced repetition learning CLI tool"
   homepage "https://github.com/HayesBarber/spaced-repetition-learning"
-  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v11.3.0"
-  sha256 "5c057d132db63b262baddb90a49383bd47d5aa640ee7f3018df9615700ebe0e7"
+  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v12.0.0"
+  sha256 "d170c2696a5e834efaa06485f9f9ec053d57a79fef2e20b2213712d018625de6"
   license "MIT"
 
   depends_on "python@3.10"
