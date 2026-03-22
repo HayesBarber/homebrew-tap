@@ -2,9 +2,28 @@
 
 set -euo pipefail
 
-REPO_OWNER="HayesBarber"
-REPO_NAME="spaced-repetition-learning"
-FORMULA_PATH="Formula/srl.rb"
+FORMULA_NAME="${1:-srl}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+FORMULA_PATH="${REPO_ROOT}/Formula/${FORMULA_NAME}.rb"
+
+if [[ ! -f "$FORMULA_PATH" ]]; then
+    echo "Formula not found: $FORMULA_PATH"
+    exit 1
+fi
+
+HOMEPAGE=$(grep -E '^\s+homepage ' "$FORMULA_PATH" | sed 's/.*"\(.*\)"/\1/')
+REPO_OWNER=$(echo "$HOMEPAGE" | sed -E 's|https?://github.com/([^/]+)/.*|\1|')
+REPO_NAME=$(echo "$HOMEPAGE" | sed -E 's|https?://github.com/[^/]+/([^/]*).*|\1|')
+
+if [[ -z "$REPO_OWNER" || -z "$REPO_NAME" ]]; then
+    echo "Failed to extract GitHub owner/repo from homepage: $HOMEPAGE"
+    exit 1
+fi
+
+echo "Formula:  $FORMULA_NAME"
+echo "Repo:     $REPO_OWNER/$REPO_NAME"
+
 API_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest"
 
 TARBALL_FILE=""
@@ -42,7 +61,7 @@ fi
 echo "Found latest version: $LATEST_TAG"
 
 TARBALL_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/tarball/${LATEST_TAG}"
-TARBALL_FILE="/tmp/srl-${LATEST_TAG}.tar.gz"
+TARBALL_FILE="/tmp/${FORMULA_NAME}-${LATEST_TAG}.tar.gz"
 
 echo "Downloading tarball..."
 if ! curl -sL "$TARBALL_URL" -o "$TARBALL_FILE"; then
@@ -61,9 +80,11 @@ echo "New SHA256: $NEW_SHA"
 
 echo "Updating formula file..."
 
-# Only update line 6 (URL) and line 7 (sha256) - the main formula, not dependencies
-sed -i.bak "6s|url \"https://api.github.com/repos/.*/tarball/.*\"|url \"${TARBALL_URL}\"|" "$FORMULA_PATH"
-sed -i.bak "7s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${NEW_SHA}\"|" "$FORMULA_PATH"
+URL_LINE=$(grep -n '^\s*url ' "$FORMULA_PATH" | head -n1 | cut -d: -f1)
+SHA_LINE=$(grep -n '^\s*sha256 ' "$FORMULA_PATH" | head -n1 | cut -d: -f1)
+
+sed -i.bak "${URL_LINE}s|url \".*\"|url \"${TARBALL_URL}\"|" "$FORMULA_PATH"
+sed -i.bak "${SHA_LINE}s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${NEW_SHA}\"|" "$FORMULA_PATH"
 
 rm -f "${FORMULA_PATH}.bak"
 
