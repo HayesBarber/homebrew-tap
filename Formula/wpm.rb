@@ -1,8 +1,8 @@
 class Wpm < Formula
   desc "A terminal typing speed test"
   homepage "https://github.com/HayesBarber/wpm"
-  url "https://api.github.com/repos/HayesBarber/wpm/tarball/v1.0.0"
-  sha256 "883745d9726cac4bcdfe51b8edb405148eec60a021c85250174c331b1e24d3bd"
+  url "https://api.github.com/repos/HayesBarber/wpm/tarball/v1.1.0"
+  sha256 "8b648a208099a313218ca17402d4953534fe1ef2319bc5887c0e30225d1a0094"
   license "MIT"
 
   depends_on "rust" => :build
