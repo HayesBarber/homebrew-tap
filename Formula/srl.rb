@@ -15,9 +15,7 @@ class Srl < Formula
   end
 
   def install
-    (buildpath/"srl/_version.py").write <<~PY
-      version = "#{version}"
-    PY
+    ENV["SETUPTOOLS_SCM_PRETEND_VERSION"] = version.to_s
 
     virtualenv_install_with_resources
   end
