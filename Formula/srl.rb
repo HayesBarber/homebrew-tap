@@ -3,8 +3,8 @@ class Srl < Formula
 
   desc "Spaced repetition learning CLI tool"
   homepage "https://github.com/HayesBarber/spaced-repetition-learning"
-  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v16.7.1"
-  sha256 "3137c8a350292478f84e97781dca5d9634bdff99c064eceffd182d60b39bc07e"
+  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v17.0.0"
+  sha256 "b5466750d616739be9b758468382ba85d5856ea9ed6b4dc01e6cda9d52795378"
   license "MIT"
 
   depends_on "python@3.10"
@@ -15,6 +15,10 @@ class Srl < Formula
   end
 
   def install
+    (buildpath/"srl/_version.py").write <<~PY
+      version = "#{version}"
+    PY
+
     virtualenv_install_with_resources
   end
 
