@@ -3,8 +3,8 @@ class Srl < Formula
 
   desc "Spaced repetition learning CLI tool"
   homepage "https://github.com/HayesBarber/spaced-repetition-learning"
-  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v18.0.0"
-  sha256 "1dfa25055dd6bf3c6c6a5372979af808dab6efa3d97cfdd0f23000240653acee"
+  url "https://api.github.com/repos/HayesBarber/spaced-repetition-learning/tarball/v18.0.1"
+  sha256 "81cbaceabcac84494c251396b7094de472971d7b2a66fcd905412eb6e741da4d"
   license "MIT"
 
   depends_on "python@3.13"
@@ -15,8 +15,6 @@ class Srl < Formula
   end
 
   def install
-    ENV["SETUPTOOLS_SCM_PRETEND_VERSION"] = version.to_s
-
     virtualenv_install_with_resources
   end
 
