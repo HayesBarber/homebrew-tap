@@ -7,7 +7,7 @@ class Srl < Formula
   sha256 "1dfa25055dd6bf3c6c6a5372979af808dab6efa3d97cfdd0f23000240653acee"
   license "MIT"
 
-  depends_on "python@3.10"
+  depends_on "python@3.13"
 
   resource "rich" do
     url "https://files.pythonhosted.org/packages/fb/d2/8920e102050a0de7bfabeb4c4614a49248cf8d5d7a8d01885fbb24dc767a/rich-14.2.0.tar.gz"
