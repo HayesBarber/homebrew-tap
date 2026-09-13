@@ -11,5 +11,5 @@ cask "rvw" do
   app "Rvw.app"
   binary "#{appdir}/Rvw.app/Contents/MacOS/rvw-cli", target: "rvw"
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 end
