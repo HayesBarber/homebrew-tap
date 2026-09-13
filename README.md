@@ -15,3 +15,11 @@ brew install <formula>
 - [wpm - A terminal typing speed test](https://github.com/HayesBarber/wpm)
 - [rerun - Watch a directory for file changes and automatically restart a command](https://github.com/HayesBarber/rerun)
 
+## Casks
+
+- [rvw — Code review and annotation tool for fast iteration with AI agents](https://github.com/HayesBarber/rvw)
+
+  ```bash
+  brew install --cask HayesBarber/tap/rvw
+  ```
+
