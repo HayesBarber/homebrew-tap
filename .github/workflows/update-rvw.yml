@@ -45,6 +45,7 @@ jobs:
         run: python3 scripts/update-rvw.py
 
       - name: Commit and push the cask
+        id: commit
         shell: bash
         run: |
           if git diff --quiet -- Casks/rvw.rb; then
@@ -56,3 +57,36 @@ jobs:
           git add -- Casks/rvw.rb
           git commit -m "chore: update rvw cask"
           git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Tag and release the cask update
+        if: steps.commit.outputs.sha != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          COMMIT_SHA: ${{ steps.commit.outputs.sha }}
+        shell: bash
+        run: |
+          LATEST_TAG=$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)
+          export LATEST_TAG
+          next_tag=$(python3 - <<'PY'
+          import os
+          import re
+          import sys
+
+          tag = os.environ["LATEST_TAG"]
+          match = re.fullmatch(r"v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)", tag)
+          if match is None:
+              sys.exit("Latest tap release must use vMAJOR.MINOR.PATCH")
+          major, minor, _ = map(int, match.groups())
+          print(f"v{major}.{minor + 1}.0")
+          PY
+          )
+          git tag "$next_tag" "$COMMIT_SHA"
+          git push origin "refs/tags/$next_tag"
+          gh release create "$next_tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "$next_tag" \
+            --generate-notes \
+            --notes-start-tag "$LATEST_TAG" \
+            --latest
