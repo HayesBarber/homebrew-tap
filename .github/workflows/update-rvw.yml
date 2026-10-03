@@ -2,7 +2,7 @@ name: Update rvw
 
 on:
   repository_dispatch:
-    types: [update-rvw]
+    types: [update_rvw]
 
 permissions:
   contents: read
