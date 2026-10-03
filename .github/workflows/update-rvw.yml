@@ -16,11 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Create the GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RVW_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RVW_APP_PRIVATE_KEY }}
+          permission-contents: write
+
       - name: Check out main
         uses: actions/checkout@v7
         with:
           ref: main
-          token: ${{ secrets.RVW_UPDATE_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           persist-credentials: true
 
       - name: Set up Python
