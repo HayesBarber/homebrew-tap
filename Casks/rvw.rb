@@ -1,6 +1,6 @@
 cask "rvw" do
-  version "1.0.0-beta.5"
-  sha256 "619736db8393c336d9892da1ae95e4e431a5a7e44b18511075e4693772645c5f"
+  version "1.0.0-beta.6"
+  sha256 "6ce154614405d2bc7069fdc46dd5511c64235bae723d176fa05aa6c87a42a84e"
 
   url "https://github.com/HayesBarber/rvw/releases/download/v#{version}/Rvw-#{version}.zip"
   name "Rvw"
